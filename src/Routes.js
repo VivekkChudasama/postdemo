@@ -9,13 +9,7 @@ const Routes = () => (
   <Stack.Navigator>
     <Stack.Screen name={'Post'} component={Post} />
     <Stack.Screen name={'PostDetails'} component={PostDetails} />
-    <Stack.Screen
-      name="JsonData"
-      component={JsonData}
-      options={{
-        title: 'JSON',
-      }}
-    />
+    <Stack.Screen name="JsonData" component={JsonData} options={{ title: 'JSON', }} />
   </Stack.Navigator>
 );
 

@@ -1,4 +1,3 @@
-// import 'react-native-gesture-handler';
 import React, {useEffect } from 'react';
 import * as Some from 'react-native-gesture-handler';
 import { NavigationContainer } from '@react-navigation/native';
