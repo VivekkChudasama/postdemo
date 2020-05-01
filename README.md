@@ -1,3 +1,3 @@
-# postdemo
+# Postdemo
 
-React Native 
+React Native Project
