@@ -1,18 +1,18 @@
 import React, {useState, useEffect} from 'react';
 import {TextInput, View, FlatList} from 'react-native';
 import {Container, Button, Fab, Icon, ActionSheet, Text} from 'native-base';
-import PostDetails from './PostDetails';
+import PostCard from './postListing/PostCard';
 
 const FLATLIST_INITIAL_NUM_TO_RENDER = 10;
 var BUTTONS = ['Filter by title', 'Filter by created at', 'Reset'];
 var CANCEL_INDEX = 2;
-var DESTRUCTIVE_INDEX = 3;
+
 let timerInstance;
 let dataStore = [];
 let page = 0;
 let filteredData = [];
 
-const Post = ({params}) => {
+const PostListing = ({params}) => {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(undefined);
 
@@ -25,6 +25,7 @@ const Post = ({params}) => {
   const [isSearchEnabled, setSearchEnabled] = useState(false);
 
   const getPostData = async (page) => {
+    console.log('calling api', page);
     fetch(
       `https://hn.algolia.com/api/v1/search_by_date?tags=story&page=${page}`,
     )
@@ -83,7 +84,7 @@ const Post = ({params}) => {
   }, [isFilterEnabled, isCreatedDateFilterEnabled, isSearchEnabled]);
 
   const renderListItem = ({item, index}) => {
-    return <PostDetails {...item} />;
+    return <PostCard {...item} />;
   };
 
   const resetList = () => {
@@ -167,7 +168,7 @@ const Post = ({params}) => {
   };
 
   return (
-    <Container style={{flex: 1, paddingHorizontal: '3%'}}>
+    <Container style={{flex: 1, paddingHorizontal: '4%'}}>
       <View
         style={{
           flexDirection: 'row',
@@ -177,9 +178,8 @@ const Post = ({params}) => {
         <TextInput
           style={{
             borderWidth: 1,
-            borderColor: '#7688FF',
+            borderColor: 'light-gray',
             width: '75%',
-            height: 'auto',
             borderRadius: 10,
           }}
           placeholder=" Search by Url or Author"
@@ -194,10 +194,9 @@ const Post = ({params}) => {
       <Button
         style={{
           height: 30,
-          width: 95,
+          width: 100,
           alignSelf: 'center',
           marginVertical: 10,
-          backgroundColor: '#7688FF'
         }}
         onPress={refreshData}>
         <Text>REFRESH</Text>
@@ -216,14 +215,14 @@ const Post = ({params}) => {
       <Fab
         direction="up"
         containerStyle={{}}
-        style={{backgroundColor: '#7688FF'}}
+        style={{backgroundColor: '#5067FF'}}
         position="bottomRight"
         onPress={() =>
           ActionSheet.show(
             {
               options: BUTTONS,
               cancelButtonIndex: CANCEL_INDEX,
-              destructiveButtonIndex: DESTRUCTIVE_INDEX,
+              // destructiveButtonIndex: DESTRUCTIVE_INDEX,
               title: 'Select filter to apply',
             },
             (buttonIndex) => {
@@ -243,4 +242,4 @@ const Post = ({params}) => {
   );
 };
 
-export default Post;
+export default PostListing;

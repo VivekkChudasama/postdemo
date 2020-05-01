@@ -1,16 +1,49 @@
-import React, {Component} from 'react';
+import React, {memo} from 'react';
+import {Card, CardItem, Text, Body} from 'native-base';
+import {StyleSheet} from 'react-native';
+import {
+  TouchableOpacity,
+  TouchableWithoutFeedback,
+} from 'react-native-gesture-handler';
+import {useNavigation} from '@react-navigation/native';
 
+const PostDetails = (json) => {
+  const {title, url, created_at, author} = json;
+  const navigation = useNavigation();
+  return (
+    <TouchableWithoutFeedback
+      onPress={() => navigation.navigate('JsonData', {json})}>
+      <Card style={styles.card}>
+        <CardItem>
+          <Body>
+            <Text style={styles.label}>
+              Title: <Text style={styles.value}>{title}</Text>
+            </Text>
+            <Text style={styles.label}>
+              URL: <Text style={styles.value}>{url}</Text>
+            </Text>
+            <Text style={styles.label}>
+              Created At: <Text style={styles.value}>{created_at}</Text>
+            </Text>
+            <Text style={styles.label}>
+              Author: <Text style={styles.value}>{author}</Text>
+            </Text>
+          </Body>
+        </CardItem>
+      </Card>
+    </TouchableWithoutFeedback>
+  );
+};
 
-export default class PostDetails extends React.Component {
-  render() {
-    return (
-      <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-        <Text>Posts Details</Text>
-        <Button
-          title="Go to Details... again"
-          onPress={() => navigation.navigate('Post')}
-        />
-      </View>
-    );
-  }
-}
+export default memo(PostDetails);
+
+const styles = StyleSheet.create({
+  card: {borderRadius: 10, paddingVertical: 7, marginTop: '2%'},
+
+  value: {
+    fontWeight: 'bold',
+  },
+  label: {
+    marginTop: '1%',
+  },
+});
