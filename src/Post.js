@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import {TextInput, View, FlatList} from 'react-native';
-import {Container, Button, Fab, Icon, ActionSheet, Text} from 'native-base';
+import {Container, Button, Fab, Icon, ActionSheet, Text,Accordion } from 'native-base';
 import PostDetails from './PostDetails';
 
 const FLATLIST_INITIAL_NUM_TO_RENDER = 10;
@@ -15,7 +15,6 @@ let filteredData = [];
 const Post = ({params}) => {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(undefined);
-
   const [seachText, setSearchText] = useState('');
   const [displayArray, setDisplayArray] = useState([]);
   const [isFilterEnabled, setFilterEnabled] = useState(false);
@@ -25,6 +24,7 @@ const Post = ({params}) => {
   const [isSearchEnabled, setSearchEnabled] = useState(false);
 
   const getPostData = async (page) => {
+    setIsLoading(true);
     fetch(
       `https://hn.algolia.com/api/v1/search_by_date?tags=story&page=${page}`,
     )
@@ -73,6 +73,7 @@ const Post = ({params}) => {
       tempArray = dataStore.slice(
         displayArray.length,
         displayArray.length + 10,
+        setIsLoading(true)
       );
     }
     setDisplayArray([...displayArray, ...tempArray]);
@@ -182,7 +183,7 @@ const Post = ({params}) => {
             height: 'auto',
             borderRadius: 10,
           }}
-          placeholder=" Search by Url or Author"
+          placeholder=" Search by Url or Author or Title"
           onChangeText={(val) => setSearchText(val)}
           value={seachText}
           onSubmitEditing={onSearch}

@@ -7,7 +7,7 @@ import JsonData from './JsonData';
 const Stack = createStackNavigator();
 const Routes = () => (
   <Stack.Navigator>
-    <Stack.Screen name={'Post'} component={Post} />
+    <Stack.Screen name={'Hacker News'} component={Post} />
     <Stack.Screen name={'PostDetails'} component={PostDetails} />
     <Stack.Screen name="JsonData" component={JsonData} options={{ title: 'JSON', }} />
   </Stack.Navigator>
